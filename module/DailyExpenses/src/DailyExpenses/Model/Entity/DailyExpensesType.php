@@ -12,9 +12,9 @@
  */
 // module/StickyNotes/src/StickyNotes/Model/Entity/StickyNotes.php
 
-namespace StickyNotes\Model\Entity;
+namespace DailyExpenses\Model\Entity;
 
-class StickyNote {
+class DailyExpensesType {
 
     protected $_id;
     protected $_note;
@@ -62,11 +62,11 @@ class StickyNote {
         return $this;
     }
 
-    public function getNote() {
+    public function getName() {
         return $this->_note;
     }
 
-    public function setNote($note) {
+    public function setName($note) {
         $this->_note = $note;
         return $this;
     }

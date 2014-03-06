@@ -15,18 +15,19 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 	  protected $_dailyExpenseTable;
-		public function getDailyExpenseTable()
+		public function getDailyExpenseTypeTable()
 		{
+			if(!$this->_dailyExpenseTable){
 			  $sm = $this->getServiceLocator();
-				$this->_dailyExpenseTable = $sm->get('DailyExpenses\Model\DailyExpensesTable');
-								echo 'asdfasdfasdf';
-				var_dump($this->_dailyExpenseTable);
+				$this->_dailyExpenseTable = $sm->get('DailyExpenses\Model\DailyExpensesTypeTable');
+			}
+			return $this->_dailyExpenseTable;
 		}
     public function indexAction()
     {
-    		$res = $this->getDailyExpenseTable();
-
-        return new ViewModel();
+    	return new ViewModel(array(
+      	'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
+      ));
     }
 		
 		public function getStickyNotesTable() {

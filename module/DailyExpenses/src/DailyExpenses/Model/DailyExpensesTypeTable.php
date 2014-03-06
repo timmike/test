@@ -13,9 +13,9 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Select;
 
-class DailyExpensesTable extends AbstractTableGateway {
+class DailyExpensesTypeTable extends AbstractTableGateway {
 
-    protected $table = 'dailyexpenses';
+    protected $table = 'dailyexpensesType';
 
     public function __construct(Adapter $adapter) {
         $this->adapter = $adapter;
@@ -23,14 +23,13 @@ class DailyExpensesTable extends AbstractTableGateway {
 
     public function fetchAll() {
         $resultSet = $this->select(function (Select $select) {
-                    $select->order('created ASC');
+                    $select->order('name ASC');
                 });
         $entities = array();
         foreach ($resultSet as $row) {
-            $entity = new Entity\DailyExpenses();
+            $entity = new Entity\DailyExpensesType();
             $entity->setId($row->id)
-                    ->setNote($row->note)
-                    ->setCreated($row->created);
+                   ->setName($row->name);
             $entities[] = $entity;
         }
         return $entities;
@@ -43,8 +42,7 @@ class DailyExpensesTable extends AbstractTableGateway {
 
         $stickyNote = new Entity\DailyExpenses(array(
                     'id' => $row->id,
-                    'note' => $row->note,
-                    'created' => $row->created,
+                    'name' => $row->note,
                 ));
         return $stickyNote;
     }
