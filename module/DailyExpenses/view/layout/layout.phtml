@@ -35,6 +35,17 @@
            		$( "#cssmenu a" ).click(function() {
            			var id = $(this).attr('class');
 								var type = 'dailyExpenseType' + id;
+								var $div = $("<div>", {id: "expenseInputUser"}).text('asdf sdf');
+								var label = $("<label>").text(id);
+								var price = $('<input type="text">').attr({name: 'price'});;
+								var date = $('<input type="date">').attr({name: 'date'});;
+								var submit = $('<input type="submit">').attr({name: 'submit_record', value: "Submit"});
+								var $form = $('<form>').attr({action: 'test.php', method: "POST"});
+								$( "#expenseInput" ).append($form);
+								$form.append(label);
+								$form.append(price);
+								$form.append(date);
+								$form.append(submit);
 								alert(type);
 							});
             	setupLeftMenu();

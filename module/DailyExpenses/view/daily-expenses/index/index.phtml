@@ -14,13 +14,13 @@ $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
                 <h2>
                     Type
                 </h2>
-                <div class="block">
+                <div class="block" id="expenseInput">
                 	 <div id='cssmenu' style="float: left; display: inline">
 <ul>
 	                <?php
                 if(!empty($this->dailyexpensesType)){
                 	foreach($this->dailyexpensesType as $value){
-                		echo '<li><a href="" class="'.$value->getName().'"><span>'.$value->getName().'</span></a></li>';																	
+                		echo '<li><a class="'.$value->getName().'"><span>'.$value->getName().'</span></a></li>';																	
                 	}
                 }
                 
@@ -35,9 +35,9 @@ $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
                 }
                 
                 ?>
-								<div style="float:right; display: inline">
-								asdfasdf
-								</div>
+                
+           
+			
                    
                 </div>
            
