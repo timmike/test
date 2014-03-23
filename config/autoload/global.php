@@ -20,7 +20,7 @@ return array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
         'username' => 'root',
-        'password' => 'nx349r0x',
+        'password' => '',
     ),
     'service_manager' => array(
         'factories' => array(

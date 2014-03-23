@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
@@ -34,11 +33,17 @@
            $(document).ready(function () {
            		$( "#cssmenu a" ).click(function() {
            			var id = $(this).attr('class');
-								var type = 'dailyExpenseType' + id;
-								alert(type);
-							});
+					var type = 'dailyExpenseType' + id;
+                    var txt2=$("<label></label>").text(type);
+                    $("#expensive-outPut").append('<form action="/public/index/add" method="POST">');
+                    $("#expensive-outPut form").append(txt2);
+                    $("#expensive-outPut form").append('<input type="text" placeholder="price" name="price" id="price"/>');
+                    $("#expensive-outPut form").append('<input type="text" placeholder="description" id="rdescription" name="routedescription" class="address"/>');
+                    $("#expensive-outPut form").append('<input type="text" placeholder="date" id="date" name="date"/>');
+                    $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Save" />');
+				});
             	setupLeftMenu();
-							setSidebarHeight();
+				setSidebarHeight();
         });
     </script>
 

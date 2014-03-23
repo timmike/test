@@ -30,11 +30,17 @@ class IndexController extends AbstractActionController
       ));
     }
 		
-		public function getStickyNotesTable() {
+	public function getStickyNotesTable()
+    {
         if (!$this->_stickyNotesTable) {
             $sm = $this->getServiceLocator();
             $this->_stickyNotesTable = $sm->get('StickyNotes\Model\StickyNotesTable');
         }
         return $this->_stickyNotesTable;
+    }
+
+    public function addAction()
+    {
+        echo 'asdfasdfasdfdsaf';
     }
 }
