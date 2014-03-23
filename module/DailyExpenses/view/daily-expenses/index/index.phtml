@@ -15,34 +15,34 @@ $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
                     Type
                 </h2>
                 <div class="block">
-                	 <div id='cssmenu' style="float: left; display: inline; border-width: 0px;">
+                	 <div id='cssmenu' style="float: left; display: inline">
 <ul>
 	                <?php
                 if(!empty($this->dailyexpensesType)){
                 	foreach($this->dailyexpensesType as $value){
-                		echo '<li><a class="'.$value->getName().'"><span>'.$value->getName().'</span></a></li>';
+                		echo '<li><a href="" class="'.$value->getName().'"><span>'.$value->getName().'</span></a></li>';
                 	}
                 }
-                
+
                 ?>
 </ul>
 </div>
                 <?php
                 if(!empty($this->dailyexpensesType)){
                 	foreach($this->dailyexpensesType as $value){
-                		echo '<input type="hidden" id="dailyExpenseType'.$value->getName().'" value="'.$value->getName().'"  />';																	
+                		echo '<input type="hidden" id="dailyExpenseType'.$value->getName().'" value="'.$value->getName().'"  />';
                 	}
                 }
-                
+
                 ?>
-								<div id="expensive-outPut" style="float:left; display: inline; margin-left: 20px; border-width: 1px; width: 500px; height: 100px; border-style: solid; border-color: #cd7cff; border-radius: 10px;">
+								<div style="float:right; display: inline">
 								asdfasdf
 								</div>
-                   
+
                 </div>
-           
+
                                         <div class="clear">
                     </div>
             </div>
-            
+
         </div>
