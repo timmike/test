@@ -1,80 +1,92 @@
-CREATE DATABASE  IF NOT EXISTS `stickynotes` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `stickynotes`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- phpMyAdmin SQL Dump
+-- version 4.1.6
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: stickynotes
--- ------------------------------------------------------
--- Server version	5.5.25
+-- Host: 127.0.0.1
+-- Generation Time: Mar 25, 2014 at 06:00 AM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.9
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dailyexpensestype`
+-- Database: `stickynotes`
 --
 
-DROP TABLE IF EXISTS `dailyexpensestype`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dailyexpensestype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dailyexpensestype`
---
-
-LOCK TABLES `dailyexpensestype` WRITE;
-/*!40000 ALTER TABLE `dailyexpensestype` DISABLE KEYS */;
-INSERT INTO `dailyexpensestype` VALUES (1,'Food'),(2,'Traffic'),(3,'Clothes'),(4,'Finance and Insurance'),(5,'Healthcare'),(6,'Study'),(7,'Lesire'),(8,'Property');
-/*!40000 ALTER TABLE `dailyexpensestype` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `dailyexpenses`
 --
 
-DROP TABLE IF EXISTS `dailyexpenses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dailyexpenses` (
+CREATE TABLE IF NOT EXISTS `dailyexpenses` (
+  `date_created` datetime NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(45) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `session_id` int(11) DEFAULT NULL,
+  `price` double NOT NULL,
+  `dailexpensetypeID` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `dailyexpenses`
 --
 
-LOCK TABLES `dailyexpenses` WRITE;
-/*!40000 ALTER TABLE `dailyexpenses` DISABLE KEYS */;
-INSERT INTO `dailyexpenses` VALUES (1,'test',NULL,NULL,NULL),(2,'fast',NULL,NULL,NULL),(3,'test',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `dailyexpenses` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `dailyexpenses` (`date_created`, `id`, `note`, `date`, `user_id`, `session_id`, `price`, `dailexpensetypeID`) VALUES
+('0000-00-00 00:00:00', 1, 'test', NULL, NULL, NULL, 0, 0),
+('0000-00-00 00:00:00', 2, 'fast', NULL, NULL, NULL, 0, 0),
+('0000-00-00 00:00:00', 3, 'test', NULL, NULL, NULL, 0, 0),
+('0000-00-00 00:00:00', 4, NULL, NULL, NULL, NULL, 0, 0),
+('0000-00-00 00:00:00', 5, NULL, NULL, NULL, NULL, 0, 0),
+('0000-00-00 00:00:00', 6, NULL, NULL, NULL, NULL, 0, 0),
+('0000-00-00 00:00:00', 7, NULL, NULL, NULL, NULL, 0, 0),
+('2014-03-24 02:21:22', 8, NULL, NULL, NULL, NULL, 0, 0),
+('2014-03-24 02:21:59', 9, NULL, NULL, NULL, NULL, 12, 0),
+('2014-03-24 02:23:12', 10, NULL, NULL, NULL, NULL, 12, 0),
+('2014-03-24 02:23:18', 11, NULL, NULL, NULL, NULL, 0, 0),
+('2014-03-24 02:23:28', 12, 'adsf', NULL, NULL, NULL, 123, 0),
+('2014-03-24 02:28:12', 13, 'asdf', NULL, NULL, NULL, 123, 0),
+('2014-03-24 02:29:13', 14, 'asdf', NULL, NULL, NULL, 123, 6),
+('2014-03-24 02:29:37', 15, 'asdf', NULL, NULL, NULL, 123, 6),
+('2014-03-24 02:29:53', 16, 'asdf', NULL, NULL, NULL, 123, 6),
+('2014-03-24 03:49:10', 17, 'asdf', NULL, NULL, NULL, 123, 6);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dailyexpensestype`
+--
+
+CREATE TABLE IF NOT EXISTS `dailyexpensestype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `dailyexpensestype`
+--
+
+INSERT INTO `dailyexpensestype` (`id`, `name`) VALUES
+(1, 'Food'),
+(2, 'Traffic'),
+(3, 'Clothes'),
+(4, 'Finance and Insurance'),
+(5, 'Healthcare'),
+(6, 'Study'),
+(7, 'Lesire'),
+(8, 'Property');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-03-05 17:03:50
