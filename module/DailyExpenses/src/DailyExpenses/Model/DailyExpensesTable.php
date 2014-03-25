@@ -76,4 +76,10 @@ class DailyExpensesTable extends AbstractTableGateway {
         return $this->delete(array('id' => (int) $id));
     }
 
+    public function insertData($data)
+    {
+        $data['date_created'] = date("Y-m-d H:i:s");
+        return $this->insert($data);
+    }
+
 }

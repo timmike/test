@@ -20,16 +20,23 @@ $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
 	                <?php
                 if(!empty($this->dailyexpensesType)){
                 	foreach($this->dailyexpensesType as $value){
-                		echo '<li><a class="'.$value->getID().'"><span>'.$value->getName().'</span></a></li>';
+                		echo '<li><a class="'.$value->getName().'"><span>'.$value->getName().'</span></a></li>';
                 	}
                 }
 
                 ?>
 </ul>
 </div>
+                <?php
+                if(!empty($this->dailyexpensesType)){
+                	foreach($this->dailyexpensesType as $value){
+                		echo '<input type="hidden" id="dailyExpenseType'.$value->getName().'" value="'.$value->getName().'"  />';
+                	}
+                }
 
+                ?>
 								<div id="expensive-outPut" style="float:left; margin-left: 20px; display: inline">
-								asdfasdf
+
 								</div>
 
                 </div>

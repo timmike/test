@@ -10,10 +10,14 @@
 return array(
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+            'dailyexpense' => array(
+                'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/',
+                    'route'    => '/[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
                     'defaults' => array(
                         'controller' => 'DailyExpenses\Controller\Index',
                         'action'     => 'index',
@@ -24,38 +28,14 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'dailyexpenses' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/DailyExpenses',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'DailyExpenses\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
+
         ),
     ),
-    
+
     'controllers' => array(
         'invokables' => array(
-            'DailyExpenses\Controller\Index' => 'DailyExpenses\Controller\IndexController'
+            'DailyExpenses\Controller\Index' => 'DailyExpenses\Controller\IndexController',
+            'DailyExpenses\Controller\Act' => 'DailyExpenses\Controller\ActController',
         ),
     ),
     'view_manager' => array(

@@ -36,7 +36,8 @@ class Module
             ),
         );
     }
-		public function getServiceConfig() {
+
+	public function getServiceConfig() {
         return array(
             'factories' => array(
                 'DailyExpenses\Model\DailyExpensesTable' => function($sm) {

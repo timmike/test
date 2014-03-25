@@ -35,12 +35,13 @@
            			var id = $(this).attr('class');
 					var type = 'dailyExpenseType' + id;
                     var txt2=$("<label></label>").text(type);
-                    $("#expensive-outPut").append('<form action="/public/index/add" method="POST">');
+                    $("#expensive-outPut").append('<form action="/public/add" method="POST">');
                     $("#expensive-outPut form").append(txt2);
                     $("#expensive-outPut form").append('<input type="text" placeholder="price" name="price" id="price"/>');
-                    $("#expensive-outPut form").append('<input type="text" placeholder="description" id="rdescription" name="routedescription" class="address"/>');
+                    $("#expensive-outPut form").append('<input type="text" placeholder="note" id="note" name="note"/>');
+                    $("#expensive-outPut form").append('<input type="hidden" placeholder="date" id="typeID" name="typeID" value="'+id+'"/>');
                     $("#expensive-outPut form").append('<input type="text" placeholder="date" id="date" name="date"/>');
-                    $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Save" />');
+                    $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Submit" />');
 				});
             	setupLeftMenu();
 				setSidebarHeight();

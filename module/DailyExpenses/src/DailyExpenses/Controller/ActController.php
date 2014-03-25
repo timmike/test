@@ -12,32 +12,20 @@ namespace DailyExpenses\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class ActController extends AbstractActionController
 {
-	protected $_dailyExpenseTable;
-    protected $_daily;
-
-    public function getDailyExpenseTypeTable()
-	{
-		if(!$this->_dailyExpenseTable){
-			$sm = $this->getServiceLocator();
-			$this->_dailyExpenseTable = $sm->get('DailyExpenses\Model\DailyExpensesTypeTable');
+	  protected $_dailyExpenseTable;
+		public function getDailyExpenseTypeTable()
+		{
+			if(!$this->_dailyExpenseTable){
+			  $sm = $this->getServiceLocator();
+				$this->_dailyExpenseTable = $sm->get('DailyExpenses\Model\DailyExpensesTypeTable');
+			}
+			return $this->_dailyExpenseTable;
 		}
-		return $this->_dailyExpenseTable;
-    }
-
-    public function getDailyExpenseTable()
-    {
-        if(!$this->_daily){
-            $sm = $this->getServiceLocator();
-            $this->_daily = $sm->get('DailyExpenses\Model\DailyExpensesTable');
-        }
-        return $this->_daily;
-    }
-
     public function indexAction()
     {
-      return new ViewModel(array(
+    	return new ViewModel(array(
       	'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
       ));
     }
@@ -53,13 +41,6 @@ class IndexController extends AbstractActionController
 
     public function addAction()
     {
-        $data = $this->getRequest()->getPost();
-        $res = array();
-        $res['price'] = $data['price'];
-        $res['note'] = $data['note'];
-        $res['dailexpensetypeID'] = $data['typeID'];
-        $this->getDailyExpenseTable()->insertData($res);
-
-
+        echo 'asdfasdfasdfdsaf';
     }
 }
