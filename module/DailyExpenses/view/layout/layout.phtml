@@ -25,31 +25,53 @@
 						->prependFile($this->basePath() . '/js/jquery-ui/jquery.effects.core.min.js')
 						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.accordion.min.js')
 						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.widget.min.js')
+                        ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.datepicker.min.js')
 						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.core.min.js')
             ->prependFile($this->basePath() . '/js/jquery-1.6.4.min.js')
+
         ; ?>
 
     <script type="text/javascript">
            $(document).ready(function () {
+               $(document).ready(function () {
+                   /* assuming that text input datePicker would have id='datePicker' */
+                   $( "#datePicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+
+               });
            		$( "#cssmenu a" ).click(function() {
            			var id = $(this).attr('class');
+                    var value = $(this).attr('value');
 					var type = 'dailyExpenseType' + id;
                     var txt2=$("<label></label>").text(type);
-                    $("#expensive-outPut").append('<form action="/public/add" method="POST">');
-                    $("#expensive-outPut form").append(txt2);
-                    $("#expensive-outPut form").append('<input type="text" placeholder="price" name="price" id="price"/>');
-                    $("#expensive-outPut form").append('<input type="text" placeholder="note" id="note" name="note"/>');
-                    $("#expensive-outPut form").append('<input type="hidden" placeholder="date" id="typeID" name="typeID" value="'+id+'"/>');
-                    $("#expensive-outPut form").append('<input type="text" placeholder="date" id="date" name="date"/>');
-                    $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Submit" />');
+                    if($('#expensive-outPut').length){
+                        $("#expensive-outPut" ).empty();
+                        $("#expensive-outPut" ).remove();
+                    }
+
+                    $("#register").append('<div id="expensive-outPut">')
+                    $("#expensive-outPut").append('<div class="form-sub-title">' + value);
+                    $("#expensive-outPut").append('<form id="regForm" action="/public/add" method="POST">');
+                    $("#expensive-outPut #regForm").append('<table><tbody>');
+                    $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Price:<td><div><input type="text" name="price">');
+                    $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Note:<td><div><input type="text" name="note">');
+                    $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Date:<td><div><input type="date" name="date">');
+                    $("#expensive-outPut #regForm table tbody").append('<tr><td><td><div><input type="submit" class="greenButton" value="Submit" /> <img id="loading" src="img/ajax-loader.gif" alt="working.." />');
+
+
+                  //  $("#expensive-outPut form").append('<input type="text" placeholder="price" name="price" id="price"/>');
+                  //  $("#expensive-outPut form").append('<input type="text" placeholder="note" id="note" name="note"/>');
+                  //  $("#expensive-outPut form").append('<input type="hidden" placeholder="date" id="typeID" name="typeID" value="'+id+'"/>');
+                   // $("#expensive-outPut form").append('<input type="text" placeholder="date" id="date" name="date"/>');
+                   // $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Submit" />');
 				});
             	setupLeftMenu();
 				setSidebarHeight();
+
         });
     </script>
-
     </head>
 <body>
+<input type="text" id="datePicker"/>
     <div class="container_12">
         <div class="grid_12 header-repeat">
             <div id="branding">
@@ -213,3 +235,4 @@
     </div>
 </body>
 </html>
+

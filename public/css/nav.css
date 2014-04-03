@@ -187,41 +187,189 @@ white-space: nowrap;
 
 li.dd span:after{content: '';}
 
-#cssmenu {
-  width: 200px;
-  border-style: solid solid none solid;
-  border-color: #D76100;
-  border-size: 1px;
-  border-width: 1px;
-  padding: 0px;
-  margin-left:-30px;
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+/* Starter CSS for Flyout Menu */
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 #cssmenu ul {
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
+    position: relative;
+    z-index: 597;
+    float: left;
 }
-#cssmenu li a {
-  height: 32px;
-  height: 24px;
-  text-decoration: none;
-  font-weight: normal;
-  color: #9E3C02;
-  display: block;
-  background: url(../img/menu4.gif);
-  padding: 8px 0 0 30px;
+#cssmenu ul li {
+    float: left;
+    min-height: 1px;
+    line-height: 1em;
+    vertical-align: middle;
 }
-#cssmenu li a:hover {
-  color: #fff;
-  background: url(../img/menu4.gif) 0 -32px;
-  padding: 8px 0 0 30px;
+#cssmenu ul li.hover,
+#cssmenu ul li:hover {
+    position: relative;
+    z-index: 599;
+    cursor: default;
 }
-#cssmenu li a:active {
-  color: #fff;
-  background: url(../img/menu4.gif) 0 -64px;
-  padding: 8px 0 0 30px;
+#cssmenu ul ul {
+    margin-top: 1px;
+    visibility: hidden;
+    position: absolute;
+    top: 1px;
+    left: 99%;
+    z-index: 598;
+    width: 100%;
+}
+#cssmenu ul ul li {
+    float: none;
+}
+#cssmenu ul ul ul {
+    top: 1px;
+    left: 99%;
+}
+#cssmenu ul li:hover > ul {
+    visibility: visible;
+}
+#cssmenu ul li {
+    float: none;
+}
+#cssmenu ul ul li {
+    font-weight: normal;
+}
+/* Custom CSS Styles */
+#cssmenu {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    width: 200px;
+}
+#cssmenu ul a,
+#cssmenu ul a:link,
+#cssmenu ul a:visited {
+    display: block;
+    color: #848889;
+    text-decoration: none;
+    font-weight: 300;
+}
+#cssmenu > ul {
+    float: none;
+}
+#cssmenu ul {
+    background: #fff;
+}
+#cssmenu > ul > li {
+    border-left: 3px solid #d7d8da;
+}
+#cssmenu > ul > li > a {
+    padding: 10px 20px;
+}
+#cssmenu > ul > li:hover {
+    border-left: 3px solid #3dbd99;
+}
+#cssmenu ul li:hover > a {
+    color: #3dbd99;
+}
+#cssmenu > ul > li:hover {
+    background: #f6f6f6;
+}
+/* Sub Menu */
+#cssmenu ul ul a:link,
+#cssmenu ul ul a:visited {
+    font-weight: 400;
+    font-size: 14px;
+}
+#cssmenu ul ul {
+    width: 180px;
+    background: none;
+    border-left: 20px solid transparent;
+}
+#cssmenu ul ul a {
+    padding: 8px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+#cssmenu ul ul li {
+    padding: 0 20px;
+    background: #fff;
+}
+#cssmenu ul ul li:last-child {
+    border-bottom: 3px solid #d7d8da;
+    padding-bottom: 10px;
+}
+#cssmenu ul ul li:first-child {
+    padding-top: 10px;
+}
+#cssmenu ul ul li:last-child > a {
+    border-bottom: none;
+}
+#cssmenu ul ul li:first-child:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -20px;
+    top: 13px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
 }
 
+
+#expensive-outPut, .registered{
+    border:3px solid #eeeeee;
+    padding:15px;
+    background: #D1DEE4;
+    color:#203360;
+    margin:30px auto 40px auto;
+    width:400px;
+    float:left;
+    display: inline;
+}
+
+
+
+.form-sub-title{
+    font-size:20px;
+
+    font-weight:bold;
+    padding:6px 0 15px 0;
+}
+
+.greenButton{
+    width:auto;
+    margin:10px 0 0 2px;
+    padding:3px 4px 3px 4px;
+    color:white;
+    background-color:#589d39;
+    outline:none;
+    border:1px solid #006600;
+    font-weight:bold;
+}
+
+.greenButton:active{
+    background-color:#006600;
+    padding:4px 3px 2px 5px;
+}
+
+#loading{
+    left:10px;
+    position:relative;
+    top:3px;
+    visibility:hidden;
+}
+
+#error{
+    background-color:#ffebe8;
+    border:1px solid #dd3c10;
+    padding:7px 3px;
+    text-align:center;
+    margin-top:10px;
+    visibility:hidden;
+}
 
 #expenseInputUser
 {
@@ -231,3 +379,24 @@ li.dd span:after{content: '';}
 	border-width:1px;
 	margin-left:125px;
 }
+
+
+
+#expensive-outPut label{
+    font-size:11px;
+    display:block;
+    text-align:right;
+}
+
+#expensive-outPut table{
+    width:300px;
+}
+
+#expensive-outPut td{
+    font-size:11px;
+}
+
+#expensive-outPut .input-container{
+    padding:1px;
+}
+

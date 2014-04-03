@@ -41,7 +41,7 @@ class IndexController extends AbstractActionController
       	'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
       ));
     }
-		
+
 	public function getStickyNotesTable()
     {
         if (!$this->_stickyNotesTable) {
