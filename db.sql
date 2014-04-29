@@ -7,6 +7,8 @@
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
+use stickynotes;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -67,7 +69,7 @@ INSERT INTO `dailyexpenses` (`date_created`, `id`, `note`, `date`, `user_id`, `s
 -- Table structure for table `dailyexpensestype`
 --
 
-CREATE TABLE IF NOT EXISTS `dailyexpensestype` (
+CREATE TABLE IF NOT EXISTS `dailyexpensesType` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -77,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `dailyexpensestype` (
 -- Dumping data for table `dailyexpensestype`
 --
 
-INSERT INTO `dailyexpensestype` (`id`, `name`) VALUES
+INSERT INTO `dailyexpensesType` (`id`, `name`) VALUES
 (1, 'Food'),
 (2, 'Traffic'),
 (3, 'Clothes'),

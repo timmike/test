@@ -9,8 +9,10 @@
 
 namespace DailyExpenses\Controller;
 
+use Zend\Filter\Null;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use DailyExpenses\Model\FormValidation;
 
 class IndexController extends AbstractActionController
 {
@@ -53,12 +55,51 @@ class IndexController extends AbstractActionController
 
     public function addAction()
     {
-        $data = $this->getRequest()->getPost();
-        $res = array();
-        $res['price'] = $data['price'];
-        $res['note'] = $data['note'];
-        $res['dailexpensetypeID'] = $data['typeID'];
-        $this->getDailyExpenseTable()->insertData($res);
+        if($this->getRequest()->isPost())
+        {
+           $data = $this->getRequest()->getPost();
+           $form = new FormValidation();
+           $errors = array();
+           $price = array('validateDouble'=>array('name'=>'price', 'key'=>$data['price'], 'required'=>true));
+           $note =  array('validateWords'=>array('name'=>'note', 'key'=>$data['note'], 'regex'=>Null, 'required'=>false));
+           $date = array('validateDate'=>array('name'=>'date', 'key'=>$data['date'], 'required'=>true));
+           $validating = array($price, $note, $date);
+
+            if(!empty($validating)){
+              foreach($validating as $key=> $value){
+                foreach($value as $function => $fields)
+                  if($form->$function($fields) !== true){
+                      $errors[] = $form->$function($fields);
+                  }
+              }
+            }
+
+
+            echo '<pre>';
+            print_r($errors);
+            echo '</pre>';
+
+            exit;
+           $msgs = array();
+           if(!empty($data['pice'])){
+             if(!is_numeric($data['price'])){
+               $msgs[] = ' The price for this item is not valid';
+             }
+           }
+           else
+             $msgs[] = ' You must enter a price for the item. ';
+
+
+
+           $res = array();
+           echo '<pre>';
+           print_r($data);
+            echo '</pre>';
+            $res['price'] = $data['price'];
+            $res['note'] = $data['note'];
+            $res['dailexpensetypeID'] = $data['typeID'];
+            $this->getDailyExpenseTable()->insertData($res);
+        }
 
 
     }
