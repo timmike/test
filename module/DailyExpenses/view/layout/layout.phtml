@@ -1,238 +1,235 @@
 <?php echo $this->doctype(); ?>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-						            ->prependStylesheet($this->basePath() . '/css/nav.css')
-												->prependStylesheet($this->basePath() . '/css/layout.css')
-                        ->prependStylesheet($this->basePath() . '/css/grid.css')
-												->prependStylesheet($this->basePath() . '/css/text.css')
-												->prependStylesheet($this->basePath() . '/css/reset.css')
-        ?>
-        <!-- Scripts -->
-        <?php echo $this->headScript()
-						->prependFile($this->basePath() . '/js/setup.js')
-						->prependFile($this->basePath() . '/js/table/table.js')
-						->prependFile($this->basePath() . '/js/table/jquery.dataTables.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.sortable.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.mouse.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.effects.slide.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.effects.core.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.accordion.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.widget.min.js')
-                        ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.datepicker.min.js')
-						->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.core.min.js')
-            ->prependFile($this->basePath() . '/js/jquery-1.6.4.min.js')
+<head>
+  <meta charset="utf-8">
+  <?php echo $this->headMeta()
+    ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+  ?>
+  <!-- Le styles -->
+  <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+    ->prependStylesheet($this->basePath() . '/css/nav.css')
+    ->prependStylesheet($this->basePath() . '/css/layout.css')
+    ->prependStylesheet($this->basePath() . '/css/grid.css')
+    ->prependStylesheet($this->basePath() . '/css/text.css')
+    ->prependStylesheet($this->basePath() . '/css/reset.css')
+  ?>
+  <!-- Scripts -->
+  <?php echo $this->headScript()
+    ->prependFile($this->basePath() . '/js/setup.js')
+    ->prependFile($this->basePath() . '/js/table/table.js')
+    ->prependFile($this->basePath() . '/js/table/jquery.dataTables.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.sortable.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.mouse.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.effects.slide.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.effects.core.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.accordion.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.widget.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.datepicker.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-ui/jquery.ui.core.min.js')
+    ->prependFile($this->basePath() . '/js/jquery-1.6.4.min.js')
 
-        ; ?>
+  ; ?>
 
-    <script type="text/javascript">
-           $(document).ready(function () {
-               $(document).ready(function () {
-                   /* assuming that text input datePicker would have id='datePicker' */
-                   $( "#datePicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(document).ready(function () {
+        /* assuming that text input datePicker would have id='datePicker' */
+        $( "#datePicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
 
-               });
-           		$( "#cssmenu a" ).click(function() {
-           			var id = $(this).attr('class');
-                    var value = $(this).attr('value');
-					var type = 'dailyExpenseType' + id;
-                    var txt2=$("<label></label>").text(type);
-                    if($('#expensive-outPut').length){
-                        $("#expensive-outPut" ).empty();
-                        $("#expensive-outPut" ).remove();
-                    }
+      });
+      $( "#cssmenu a" ).click(function() {
+        var id = $(this).attr('class');
+        var value = $(this).attr('value');
+        var type = 'dailyExpenseType' + id;
+        var txt2=$("<label></label>").text(type);
+        if($('#expensive-outPut').length){
+          $("#expensive-outPut" ).empty();
+          $("#expensive-outPut" ).remove();
+        }
+        $("#register").append('<div id="expensive-outPut">')
+        $("#expensive-outPut").append('<div class="form-sub-title">' + value);
+        $("#expensive-outPut").append('<form id="regForm" action="<?php echo $this->basePath('add');?>" method="POST">');
+        $("#expensive-outPut #regForm").append('<table><tbody>');
+        $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Price:<td><div><input type="text" id="price" name="price">');
+        $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Note:<td><div><input type="text" id="note" name="note">');
+        $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Date:<td><div><input type="date" id="date" name="date">');
+        $("#expensive-outPut #regForm table tbody").append('<input type="hidden" name="type_id" value="'+id+'">');
+        $("#expensive-outPut #regForm table tbody").append('<tr><td><td><div><input type="submit" class="greenButton" value="Submit" /> <img id="loading" src="img/ajax-loader.gif" alt="working.." />');
+        //  $("#expensive-outPut form").append('<input type="text" placeholder="price" name="price" id="price"/>');
+        //  $("#expensive-outPut form").append('<input type="text" placeholder="note" id="note" name="note"/>');
+        //  $("#expensive-outPut form").append('<input type="hidden" placeholder="date" id="typeID" name="typeID" value="'+id+'"/>');
+        // $("#expensive-outPut form").append('<input type="text" placeholder="date" id="date" name="date"/>');
+        // $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Submit" />');
+      });
+      setupLeftMenu();
+      setSidebarHeight();
 
-                    $("#register").append('<div id="expensive-outPut">')
-                    $("#expensive-outPut").append('<div class="form-sub-title">' + value);
-                    $("#expensive-outPut").append('<form id="regForm" action="/public/add" method="POST">');
-                    $("#expensive-outPut #regForm").append('<table><tbody>');
-                    $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Price:<td><div><input type="text" name="price">');
-                    $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Note:<td><div><input type="text" name="note">');
-                    $("#expensive-outPut #regForm table tbody").append('<tr><td><label>Date:<td><div><input type="date" name="date">');
-                    $("#expensive-outPut #regForm table tbody").append('<tr><td><td><div><input type="submit" class="greenButton" value="Submit" /> <img id="loading" src="img/ajax-loader.gif" alt="working.." />');
-
-
-                  //  $("#expensive-outPut form").append('<input type="text" placeholder="price" name="price" id="price"/>');
-                  //  $("#expensive-outPut form").append('<input type="text" placeholder="note" id="note" name="note"/>');
-                  //  $("#expensive-outPut form").append('<input type="hidden" placeholder="date" id="typeID" name="typeID" value="'+id+'"/>');
-                   // $("#expensive-outPut form").append('<input type="text" placeholder="date" id="date" name="date"/>');
-                   // $("#expensive-outPut form").append('<br><input type="submit" id="savebutton" value="Submit" />');
-				});
-            	setupLeftMenu();
-				setSidebarHeight();
-
-        });
-    </script>
-    </head>
+    });
+  </script>
+</head>
 <body>
-<input type="text" id="datePicker"/>
-    <div class="container_12">
-        <div class="grid_12 header-repeat">
-            <div id="branding">
-                <div class="floatleft">
-                    <img src="img/logo.png" alt="Logo" /></div>
-                <div class="floatright">
-                    <div class="floatleft">
-                        <img src="img/img-profile.jpg" alt="Profile Pic" /></div>
-                    <div class="floatleft marginleft10">
-                        <ul class="inline-ul floatleft">
-                            <li>Hello Admin</li>
-                            <li><a href="#">Config</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                        <br />
-                        <span class="small grey">Last Login: 3 hours ago</span>
-                    </div>
-                </div>
-                <div class="clear">
-                </div>
-            </div>
+<div class="container_12">
+  <div class="grid_12 header-repeat">
+    <div id="branding">
+      <div class="floatleft">
+        <img src="img/logo.png" alt="Logo" /></div>
+      <div class="floatright">
+        <div class="floatleft">
+          <img src="img/img-profile.jpg" alt="Profile Pic" /></div>
+        <div class="floatleft marginleft10">
+          <ul class="inline-ul floatleft">
+            <li>Hello Admin</li>
+            <li><a href="#">Config</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+          <br />
+          <span class="small grey">Last Login: 3 hours ago</span>
         </div>
-        <div class="clear">
-        </div>
-        <div class="grid_12">
-            <ul class="nav main">
-                <li class="ic-dashboard"><a href="dashboard.html"><span>Dashboard</span></a> </li>
-                <li class="ic-form-style"><a href="javascript:"><span>Controls</span></a>
-                    <ul>
-                        <li><a href="form-controls.html">Forms</a> </li>
-                        <li><a href="buttons.html">Buttons</a> </li>
-                        <li><a href="form-controls.html">Full Page Example</a> </li>
-                        <li><a href="table.html">Page with Sidebar Example</a> </li>
-                    </ul>
-                </li>
-                <li class="ic-typography"><a href="typography.html"><span>Typography</span></a></li>
-				<li class="ic-charts"><a href="charts.html"><span>Charts & Graphs</span></a></li>
-                <li class="ic-grid-tables"><a href="table.html"><span>Data Table</span></a></li>
-                <li class="ic-gallery dd"><a href="javascript:"><span>Image Galleries</span></a>
-               		 <ul>
-                        <li><a href="image-gallery.html">Pretty Photo</a> </li>
-                        <li><a href="gallery-with-filter.html">Gallery with Filter</a> </li>
-                    </ul>
-                </li>
-                <li class="ic-notifications"><a href="notifications.html"><span>Notifications</span></a></li>
+      </div>
+      <div class="clear">
+      </div>
+    </div>
+  </div>
+  <div class="clear">
+  </div>
+  <div class="grid_12">
+    <ul class="nav main">
+      <li class="ic-dashboard"><a href="dashboard.html"><span>Dashboard</span></a> </li>
+      <li class="ic-form-style"><a href="javascript:"><span>Controls</span></a>
+        <ul>
+          <li><a href="form-controls.html">Forms</a> </li>
+          <li><a href="buttons.html">Buttons</a> </li>
+          <li><a href="form-controls.html">Full Page Example</a> </li>
+          <li><a href="table.html">Page with Sidebar Example</a> </li>
+        </ul>
+      </li>
+      <li class="ic-typography"><a href="typography.html"><span>Typography</span></a></li>
+      <li class="ic-charts"><a href="charts.html"><span>Charts & Graphs</span></a></li>
+      <li class="ic-grid-tables"><a href="table.html"><span>Data Table</span></a></li>
+      <li class="ic-gallery dd"><a href="javascript:"><span>Image Galleries</span></a>
+        <ul>
+          <li><a href="image-gallery.html">Pretty Photo</a> </li>
+          <li><a href="gallery-with-filter.html">Gallery with Filter</a> </li>
+        </ul>
+      </li>
+      <li class="ic-notifications"><a href="notifications.html"><span>Notifications</span></a></li>
+
+    </ul>
+  </div>
+  <div class="clear">
+  </div>
+  <div class="grid_2">
+    <div class="box sidemenu">
+      <div class="block" id="section-menu">
+        <ul class="section menu">
+          <li><a class="menuitem">Menu 1</a>
+            <ul class="submenu">
+              <li><a>Submenu 1</a> </li>
+              <li><a>Submenu 2</a> </li>
 
             </ul>
-        </div>
-        <div class="clear">
-        </div>
-        <div class="grid_2">
-            <div class="box sidemenu">
-                <div class="block" id="section-menu">
-                    <ul class="section menu">
-                        <li><a class="menuitem">Menu 1</a>
-                            <ul class="submenu">
-                                <li><a>Submenu 1</a> </li>
-                                <li><a>Submenu 2</a> </li>
+          </li>
+          <li><a class="menuitem">Menu 2</a>
+            <ul class="submenu">
+              <li><a>Submenu 1</a> </li>
+              <li><a>Submenu 2</a> </li>
+              <li><a>Submenu 3</a> </li>
+              <li><a>Submenu 4</a> </li>
+              <li><a>Submenu 5</a> </li>
+            </ul>
+          </li>
+          <li><a class="menuitem">Menu 3</a>
+            <ul class="submenu">
+              <li><a>Submenu 1</a> </li>
+              <li><a>Submenu 2</a> </li>
+              <li><a>Submenu 3</a> </li>
+              <li><a>Submenu 4</a> </li>
+              <li><a>Submenu 5</a> </li>
+              <li><a>Submenu 1</a> </li>
+              <li><a>Submenu 2</a> </li>
+              <li><a>Submenu 3</a> </li>
+              <li><a>Submenu 4</a> </li>
+              <li><a>Submenu 5</a> </li>
+            </ul>
+          </li>
+          <li><a class="menuitem">Menu 4</a>
+            <ul class="submenu">
+              <li><a>Submenu 1</a> </li>
+              <li><a>Submenu 2</a> </li>
+              <li><a>Submenu 3</a> </li>
+              <li><a>Submenu 4</a> </li>
+              <li><a>Submenu 5</a> </li>
+              <li><a>Submenu 6</a> </li>
+              <li><a>Submenu 7</a> </li>
+              <li><a>Submenu 8</a> </li>
+              <li><a>Submenu 9</a> </li>
+              <li><a>Submenu 10</a> </li>
 
-                            </ul>
-                        </li>
-                        <li><a class="menuitem">Menu 2</a>
-                            <ul class="submenu">
-                                <li><a>Submenu 1</a> </li>
-                                <li><a>Submenu 2</a> </li>
-                                <li><a>Submenu 3</a> </li>
-                                <li><a>Submenu 4</a> </li>
-                                <li><a>Submenu 5</a> </li>
-                            </ul>
-                        </li>
-                        <li><a class="menuitem">Menu 3</a>
-                            <ul class="submenu">
-                                <li><a>Submenu 1</a> </li>
-                                <li><a>Submenu 2</a> </li>
-                                <li><a>Submenu 3</a> </li>
-                                <li><a>Submenu 4</a> </li>
-                                <li><a>Submenu 5</a> </li>
-                                <li><a>Submenu 1</a> </li>
-                                <li><a>Submenu 2</a> </li>
-                                <li><a>Submenu 3</a> </li>
-                                <li><a>Submenu 4</a> </li>
-                                <li><a>Submenu 5</a> </li>
-                            </ul>
-                        </li>
-                        <li><a class="menuitem">Menu 4</a>
-                            <ul class="submenu">
-                                <li><a>Submenu 1</a> </li>
-                                <li><a>Submenu 2</a> </li>
-                                <li><a>Submenu 3</a> </li>
-                                <li><a>Submenu 4</a> </li>
-                                <li><a>Submenu 5</a> </li>
-                                <li><a>Submenu 6</a> </li>
-                                <li><a>Submenu 7</a> </li>
-                                <li><a>Submenu 8</a> </li>
-                                <li><a>Submenu 9</a> </li>
-                                <li><a>Submenu 10</a> </li>
-
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-				<?php echo $this->content; ?>
-        <div class="grid_5">
-            <div class="box round">
-                <h2>
-                    Column on Left</h2>
-                <div class="block">
-                    <p class="start">
-                        <img src="img/horizontal.jpg" alt="Ginger" class="left" />Lorem ipsum dolor sit
-                        amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur..</p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-        </div>
-        <div class="grid_5">
-            <div class="box round">
-                <h2>
-                    Right Column</h2>
-                <div class="block">
-                    <p class="start">
-                        <img src="img/vertical.jpg" alt="Ginger" class="right" />Lorem Ipsum is simply dummy
-                        text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                        standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only
-                        five centuries, but also the leap into electronic typesetting, remaining essentially
-                        unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-                        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-                        PageMaker including versions of Lorem Ipsum.</p>
-                    <p>
-                        It is a long established fact that a reader will be distracted by the readable content
-                        of a page when looking at its layout. The point of using Lorem Ipsum is that it
-                        has a more-or-less normal distribution of letters, as opposed to using 'Content
-                        here, content here', making it look like readable English. Many desktop publishing
-                        packages and web page editors now use Lorem Ipsum as their default model text, and
-                        a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various
-                        versions have evolved over the years, sometimes by accident, sometimes on purpose
-                        (injected humour and the like).</p>
-                </div>
-            </div>
-        </div>
-        <div class="clear">
-        </div>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="clear">
-    </div>
-    <div id="site_info">
+  </div>
+  <?php echo $this->content; ?>
+  <div class="grid_5">
+    <div class="box round">
+      <h2>
+        Column on Left</h2>
+      <div class="block">
+        <p class="start">
+          <img src="img/horizontal.jpg" alt="Ginger" class="left" />Lorem ipsum dolor sit
+          amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur..</p>
         <p>
-            Copyright <a href="#">BlueWhale Admin</a>. All Rights Reserved.
-        </p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum.</p>
+      </div>
     </div>
+  </div>
+  <div class="grid_5">
+    <div class="box round">
+      <h2>
+        Right Column</h2>
+      <div class="block">
+        <p class="start">
+          <img src="img/vertical.jpg" alt="Ginger" class="right" />Lorem Ipsum is simply dummy
+          text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+          standard dummy text ever since the 1500s, when an unknown printer took a galley
+          of type and scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting, remaining essentially
+          unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.</p>
+        <p>
+          It is a long established fact that a reader will be distracted by the readable content
+          of a page when looking at its layout. The point of using Lorem Ipsum is that it
+          has a more-or-less normal distribution of letters, as opposed to using 'Content
+          here, content here', making it look like readable English. Many desktop publishing
+          packages and web page editors now use Lorem Ipsum as their default model text, and
+          a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various
+          versions have evolved over the years, sometimes by accident, sometimes on purpose
+          (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+  <div class="clear">
+  </div>
+</div>
+<div class="clear">
+</div>
+<div id="site_info">
+  <p>
+    Copyright <a href="#">BlueWhale Admin</a>. All Rights Reserved.
+  </p>
+</div>
 </body>
 </html>
 

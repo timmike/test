@@ -9,6 +9,7 @@
 
 namespace DailyExpenses;
 
+use Zend\Mvc\Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 

@@ -2,37 +2,60 @@
 $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
 ?>
 <div class="grid_10">
-    <div class="box round first">
-        <h2>
-            Product Sales</h2>
+  <div class="box round first">
+    <h2>
+      Product Sales</h2>
 
-        <div class="block">
-            <div id="chart1">
-            </div>
-        </div>
+    <div class="block">
+      <div id="chart1">
+      </div>
     </div>
-    <div class="box round">
-        <h2>
-            Type
-        </h2>
+  </div>
+  <div class="box round">
+    <h2>
+      Type
+    </h2>
+    <?php
+    session_start();
+    if (!empty($_SESSION['user'])) {
+      if (!empty($_SESSION['user']->err_msgs)) {
+        foreach ($_SESSION['user']->err_msgs as $key => $value) {
+          echo '<div class="error">' . $value . '</div>';
+        }
+      }
+      $js = "<script>
+        $(document).ready(function(){
+            $('#cssmenu a." . $_SESSION['user']->data['type_id'] . "').trigger('click');";
 
-        <div class="block" id="register">
-            <div id='cssmenu' style="float: left; display: inline; border-width: 0px;">
-                <ul>
-                    <?php
-                    if (!empty($this->dailyexpensesType)) {
-                        foreach ($this->dailyexpensesType as $value) {
-                            echo '<li><a class="' . $value->getID() . '" value="'.$value->getName().'"><span>' . $value->getName() . '</span></a></li>';
-                        }
-                    }
+      if (!empty($_SESSION['user']->data['price'])) {
+        $js .= '$("#expensive-outPut #regForm table #price").attr("value", "' . $_SESSION['user']->data['price'] . '");';
+      }
+      if (!empty($_SESSION['user']->data['note'])) {
+        $js .= '$("#expensive-outPut #regForm table #note").attr("value", "' . $_SESSION['user']->data['note'] . '");';
+      }
 
-                    ?>
-                </ul>
-            </div>
-        </div>
+      $js .= "});
+        </script>";
+      echo $js;
+      unset($_SESSION['user']);
+    }
+    ?>
+    <div class="block" id="register">
+      <div id='cssmenu' style="float: left; display: inline; border-width: 0px;">
+        <ul>
+          <?php
+          if (!empty($this->dailyexpensesType)) {
+            foreach ($this->dailyexpensesType as $value) {
+              echo '<li><a class="' . $value->getID() . '" value="' . $value->getName() . '"><span>' . $value->getName() . '</span></a></li>';
+            }
+          }
 
-        <div class="clear">
-        </div>
+          ?>
+        </ul>
+      </div>
     </div>
 
+    <div class="clear">
+    </div>
+  </div>
 </div>

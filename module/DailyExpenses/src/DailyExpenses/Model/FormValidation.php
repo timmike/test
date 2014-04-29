@@ -26,7 +26,12 @@ class FormValidation
 
     public function validateInteger($form)
     {
-
+      if (!empty($form['key'])){
+        if (!preg_match('/^[0-9]+$/',$form['key']))
+          $errors = ucfirst($form['name']).' must be an integer.';
+      }
+      else if(!empty($form['required']))
+        $errors = 'You must enter a ' . $form['name'] . '';
     }
 
     public function validateWords($form)
