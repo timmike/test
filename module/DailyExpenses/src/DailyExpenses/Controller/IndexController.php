@@ -14,11 +14,13 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DailyExpenses\Model\FormValidation;
 use Zend\Session\Container;
+use DailyExpenses\Model\UserExpenseForm;
 
 class IndexController extends AbstractActionController
 {
   protected $_dailyExpenseTable;
   protected $_daily;
+  protected $_user;
 
   public function getDailyExpenseTypeTable()
   {
@@ -40,8 +42,13 @@ class IndexController extends AbstractActionController
 
   public function indexAction()
   {
+
+    $userExpenseForm = new UserExpenseForm();
+    $form = $userExpenseForm->getForm();
     return new ViewModel(array(
       'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
+      'records'=>$this->getUserTable()->fetchAllRecords(),
+      'form'=>$form
     ));
   }
 
@@ -52,6 +59,15 @@ class IndexController extends AbstractActionController
       $this->_stickyNotesTable = $sm->get('StickyNotes\Model\StickyNotesTable');
     }
     return $this->_stickyNotesTable;
+  }
+
+  public function getUserTable()
+  {
+    if(!$this->_user){
+      $sm = $this->getServiceLocator();
+      $this->_user = $sm->get('DailyExpenses\Model\UsersTable');
+    }
+    return $this->_user;
   }
 
   public function addAction()
@@ -65,7 +81,6 @@ class IndexController extends AbstractActionController
       $date = array('validateDate' => array('name' => 'date', 'key' => $data['date'], 'required' => true));
       $type_id = array('validateInteger' => array('name' => 'type_id', 'key' => $data['type_id'], 'required' => true));
       $validating = array($price, $note, $date, $type_id);
-
       if (!empty($validating)) {
         foreach ($validating as $key => $value) {
           foreach ($value as $function => $fields) {
@@ -88,7 +103,11 @@ class IndexController extends AbstractActionController
         $this->_daily = $sm->get('DailyExpenses\Model\DailyExpensesTable')->insert($data);
         return $this->redirect()->toRoute('dailyexpense');
       }
-
     }
+  }
+
+  public function testAction()
+  {
+    echo 'asdf';
   }
 }

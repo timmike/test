@@ -51,6 +51,11 @@ class Module
                     $table = new Model\DailyExpensesTypeTable($dbAdapter);
                     return $table;
                 },
+                'DailyExpenses\Model\UsersTable' => function($sm) {
+                  $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                  $table = new Model\UsersTable($dbAdapter);
+                  return $table;
+                },
             ),
         );
     }

@@ -2,15 +2,6 @@
 $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
 ?>
 <div class="grid_10">
-  <div class="box round first">
-    <h2>
-      Product Sales</h2>
-
-    <div class="block">
-      <div id="chart1">
-      </div>
-    </div>
-  </div>
   <div class="box round">
     <h2>
       Type
@@ -53,9 +44,179 @@ $colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
           ?>
         </ul>
       </div>
+      <div id="expensive-outPut">
+        <div class="form-sub-title">Healthcare</div>
+        <?php
+        // within a view script
+        $form = $this->form;
+        $form->prepare();
+
+        // Assuming the "contact/process" route exists...
+        $form->setAttribute('action', $this->url('dailyexpense'));
+
+        // Set the method attribute for the form
+        $form->setAttribute('method', 'post');
+
+        // Get the form label plugin
+        $formLabel = $this->plugin('formLabel');
+
+        // Render the opening tag
+        $this->form()->openTag($form);
+
+        $name = $form->get('Name');
+        $price = $form->get('Price');
+        $note = $form->get('Note');
+        $date = $form->get('Date');
+        ?>
+
+          <table>
+            <tbody>
+            <tr>
+              <td align="right"><label><?php echo $name->getLabel(); ?>:</label></td>
+              <td>
+                <div> <?php echo $formLabel->openTag() . $name->getOption('Name');
+                  echo $this->formInput($name);
+                  echo $this->formElementErrors($name);
+                  echo $formLabel->closeTag(); ?></div>
+              </td>
+            </tr>
+            <tr>
+              <td><label><?php echo $price->getLabel(); ?>:</label></td>
+              <td>
+                <div><?php echo $formLabel->openTag() . $price->getOption('Name');
+                  echo $this->formInput($price);
+                  echo $this->formElementErrors($price);
+                  echo $formLabel->closeTag(); ?></div>
+              </td>
+            </tr>
+            <tr>
+              <td ><label><?php echo $note->getLabel(); ?>:</label></td>
+              <td>
+                <div><?php echo $formLabel->openTag() . $note->getOption('Name');
+                  echo $this->formInput($note);
+                  echo $this->formElementErrors($note);
+                  echo $formLabel->closeTag(); ?></div>
+              </td>
+            </tr>
+            <tr>
+              <td align="right"><label><?php echo $date->getLabel(); ?>:</label></td>
+              <td>
+                <div><input type="text" id="datePicker" name="date"></div>
+              </td>
+            </tr>
+            <input type="hidden" name="type_id" id="type_id">
+            <tr>
+              <td></td>
+              <td>
+                <div><input type="submit" class="greenButton" value="Submit"> <img id="loading"
+                                                                                   src="img/ajax-loader.gif"
+                                                                                   alt="working.."></div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+      </div>
     </div>
 
     <div class="clear">
     </div>
   </div>
+  <div class="box round first grid">
+    <h2>
+      Tables & Grids</h2>
+
+    <div class="block">
+      <table class="data display datatable" id="example">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        if (!empty($this->records)) {
+          foreach ($this->records as $value) {
+            echo '<tr class="gradeA">
+     <td>' . date('M-j-y g:i:s A', strtotime($value['date_created'])) . '</td>
+     <td>' . $value['name'] . '</td>
+     <td>' . $value['name'] . '</td>
+     <td>' . $value['price'] . '</td>
+     <td>' . $value['note'] . '</td>
+     </tr>';
+          }
+        }
+        ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+<?php
+// within a view script
+$form = $this->form;
+$form->prepare();
+
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', $this->url('dailyexpense'));
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+
+// Get the form label plugin
+$formLabel = $this->plugin('formLabel');
+
+// Render the opening tag
+$this->form()->openTag($form);
+?>
+  <div class="form_element">
+    <?php
+    $name = $form->get('Name');
+    echo '<label>'.$name->getLabel().'</label>';
+    echo $formLabel->openTag() . $name->getOption('Name');
+    echo $this->formInput($name);
+    echo $this->formElementErrors($name);
+    echo $formLabel->closeTag();
+    ?></div>
+
+<div class="form_element">
+  <?php
+  $name = $form->get('Price');
+  echo '<label>'.$name->getLabel().'</label>';
+  echo $formLabel->openTag() . $name->getOption('label');
+  echo $this->formInput($name);
+  echo $this->formElementErrors($name);
+  echo $formLabel->closeTag();
+  ?></div>
+
+  <div class="form_element">
+    <?php
+    $name = $form->get('Note');
+    echo $formLabel->openTag() . $name->getOption('label');
+    echo $this->formInput($name);
+    echo $this->formElementErrors($name);
+    echo $formLabel->closeTag();
+    ?></div>
+
+<div class="form_element">
+  <?php
+  $name = $form->get('Date');
+  echo $formLabel->openTag() . $name->getOption('label');
+  echo $this->formInput($name);
+  echo $this->formElementErrors($name);
+  echo $formLabel->closeTag();
+  ?></div>
+
+<div class="form_element">
+  <?php
+  $name = $form->get('Send');
+  echo $formLabel->openTag() . $name->getOption('label');
+  echo $this->formInput($name);
+  echo $this->formElementErrors($name);
+  echo $formLabel->closeTag();
+  ?></div>
+
+<?php echo $this->form()->closeTag() ?>

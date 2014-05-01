@@ -56,13 +56,10 @@ class FormValidation
     public function validateDate($form)
     {
         if (!empty($form['key'])){
-          if(!preg_match('/^[0-9]{4}\-[0-9]{1,2}\-[0-9]{1,2}$/', $form['key']))
+          if(!preg_match('/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/', $form['key']))
               $errors = 'The date is not in valid format.';
-          else{
+          else
             $piece = explode('-', $form['key']);
-            if(!checkdate($piece[1], $piece['2'], $piece[0]))
-              $errors = 'The date you have entered does not exist.';
-          }
         }
         else if(!empty($form['required']))
             $errors = 'You must enter a ' . $form['name'] . '.';

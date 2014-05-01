@@ -25,9 +25,7 @@ class ActController extends AbstractActionController
 		}
     public function indexAction()
     {
-    	return new ViewModel(array(
-      	'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
-      ));
+        echo 'alove';
     }
 		
 	public function getStickyNotesTable()
