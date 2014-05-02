@@ -12,7 +12,7 @@ namespace DailyExpenses\Controller;
 use Zend\Filter\Null;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use DailyExpenses\Model\FormValidation;
+use DailyExpenses\Model\Profile;
 use Zend\Session\Container;
 use DailyExpenses\Model\UserExpenseForm;
 
@@ -42,7 +42,6 @@ class IndexController extends AbstractActionController
 
   public function indexAction()
   {
-
     $userExpenseForm = new UserExpenseForm();
     $form = $userExpenseForm->getForm();
     return new ViewModel(array(
@@ -72,35 +71,23 @@ class IndexController extends AbstractActionController
 
   public function addAction()
   {
-    if ($this->getRequest()->isPost()) {
-      $data = $this->getRequest()->getPost();
-      $form = new FormValidation();
-      $errors = array();
-      $price = array('validateDouble' => array('name' => 'price', 'key' => $data['price'], 'required' => true));
-      $note = array('validateWords' => array('name' => 'note', 'key' => $data['note'], 'regex' => Null, 'required' => false));
-      $date = array('validateDate' => array('name' => 'date', 'key' => $data['date'], 'required' => true));
-      $type_id = array('validateInteger' => array('name' => 'type_id', 'key' => $data['type_id'], 'required' => true));
-      $validating = array($price, $note, $date, $type_id);
-      if (!empty($validating)) {
-        foreach ($validating as $key => $value) {
-          foreach ($value as $function => $fields) {
-            if ($form->$function($fields) !== true) {
-              $errors[] = $form->$function($fields);
-            }
-          }
-        }
-      }
-      if (count($errors) > 1) {
-        $user_session = new Container('user');
-        $user_session->is_error = true;
-        $user_session->err_msgs = $errors;
-        $user_session->data = $data;
-        return $this->redirect()->toRoute('dailyexpense');
-      } else {
+    $userExpenseForm = new UserExpenseForm();
+    $request = $this->getRequest();
+    if ($request->isPost()) {
+      $profile = new Profile();
+      $userExpenseForm->setInputFilter($profile->getInputFilter());
+      $userExpenseForm->setData($request->getPost());
+      if ($userExpenseForm->isValid()) {
+        $data = (array)$request->getPost();
+        $pieces = explode('/', $data['Date']);
+        $data['Date'] = $pieces[2].'-'.$pieces[1].'-'.$pieces[0];
         $data['date_created'] = date("Y-m-d H:i:s");
-        $data = (array)$data;
-        $sm = $this->getServiceLocator();
-        $this->_daily = $sm->get('DailyExpenses\Model\DailyExpensesTable')->insert($data);
+        $this->getDailyExpenseTable()->insert($data);
+        return $this->redirect()->toRoute('dailyexpense');
+      }
+      else{
+        $user_session = new Container('type_id');
+        $user_session->type_id= $request->getPost()['type_id'];
         return $this->redirect()->toRoute('dailyexpense');
       }
     }

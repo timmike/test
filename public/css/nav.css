@@ -380,8 +380,6 @@ li.dd span:after{content: '';}
 	margin-left:125px;
 }
 
-
-
 #expensive-outPut label{
     font-size:11px;
     display:block;
@@ -389,7 +387,7 @@ li.dd span:after{content: '';}
 }
 
 #expensive-outPut table{
-    width:300px;
+    width:225px;
 }
 
 #expensive-outPut td{

@@ -23,11 +23,19 @@ class UserExpenseForm extends Form
     $name->setAttributes(array(
       'type'  => 'text'
     ));
+    $name->setOptions(array(
+      'required' => true,
+      'label' => 'Name'
+    ));
 
     $price = new Element('Price');
     $price->setLabel('Price');
     $price->setAttributes(array(
       'type'  => 'text'
+    ));
+    $price->setOptions(array(
+      'required' => true,
+      'label' => 'Price'
     ));
 
     $note = new Element('Note');
@@ -35,14 +43,21 @@ class UserExpenseForm extends Form
     $note->setAttributes(array(
       'type'  => 'text'
     ));
+    $note->setOptions(array(
+      'required' => false,
+      'label' => 'Note'
+    ));
 
     $date = new Element('Date');
     $date->setLabel('Date');
     $date->setAttributes(array(
-      'type'  => 'text'
+      'type'  => 'text',
+      'id'=>'datePicker'
     ));
-
-    $csrf = new Element\Csrf('security');
+    $date->setOptions(array(
+      'required' => false,
+      'label' => 'Date'
+    ));
 
     $send = new Element('Send');
     $send->setValue('Submit');
@@ -50,18 +65,20 @@ class UserExpenseForm extends Form
       'type'  => 'submit'
     ));
 
-    $this->form = new Form('regForm');
-    $this->form->add($name);
-    $this->form->add($price);
-    $this->form->add($note);
-    $this->form->add($date);
-    $this->form->add($csrf);
-    $this->form->add($send);
+    parent::__construct("regForm");
+    $this->add($name);
+    $this->add($price);
+    $this->add($note);
+    $this->add($date);
+    $this->add($send);
+    $nameInput = new Input('name');
+    $inputFilter = new InputFilter($nameInput);
+    $this->setInputFilter($inputFilter);
   }
 
   function getForm()
   {
-    return $this->form;
+    return $this;
   }
 
   private $_form;
