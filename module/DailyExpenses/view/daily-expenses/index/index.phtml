@@ -1,143 +1,155 @@
-<?php
-$colors = array('purple', 'yellow', 'green', 'blue', 'red', 'darkblue');
-?>
-  <div class="grid_10">
-    <div class="box round">
-      <h2>
-        Type
-      </h2>
-      <?php
-      session_start();
-      if (!empty($_SESSION['type_id'])) {
-        $js = "<script>
-        $(document).ready(function(){
-           $('#cssmenu a." . $_SESSION['type_id']['type_id'] . "').trigger('click');";
-        $js .= "});
-        </script>";
-        echo $js;
-        unset($_SESSION['type_id']);
-      }
-      ?>
-      <div class="block" id="register">
-        <div id='cssmenu' style="float: left; display: inline; border-width: 0px;">
-          <ul>
-            <?php
-            if (!empty($this->dailyexpensesType)) {
-              foreach ($this->dailyexpensesType as $value) {
-                echo '<li><a class="' . $value->getID() . '" value="' . $value->getName() . '"><span>' . $value->getName() . '</span></a></li>';
-              }
-            }
-
-            ?>
-          </ul>
+<div id="main">
+  <!-- Me -->
+  <article id="me" class="panel">
+    <header>
+      <section class="ac-container">
+        <div>
+          <input id="ac-1" name="accordion-1" type="radio" checked />
+          <label for="ac-1">About us</label>
+          <article class="ac-small">
+            <p>Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.</p>
+          </article>
         </div>
-        <div id="expensive-outPut">
-          <div class="form-sub-title">Healthcare</div>
-          <?php
-          $form = $this->form;
-          // within a view script
-          $form->prepare();
-          // Assuming the "contact/process" route exists...
-          $form->setAttribute('action', $this->basePath().'/add');
-          // Set the method attribute for the form
-          $form->setAttribute('method', 'post');
-          // Get the form label plugin
-          $formLabel = $this->plugin('formLabel');
-          // Render the opening tag
-          echo $this->form()->openTag($form);
-          $name = $form->get('Name');
-          $price = $form->get('Price');
-          $note = $form->get('Note');
-          $date = $form->get('Date');
-          ?>
-
-          <table border="1">
-            <tbody>
-            <tr>
-              <td><label><?php echo $name->getLabel(); ?>:</label></td>
-              <td>
-                <div> <?php echo $formLabel->openTag() . $name->getOption('Name');
-                  echo $this->formInput($name);
-                  echo $this->formElementErrors($name);
-                  echo $formLabel->closeTag(); ?></div>
-              </td>
-            </tr>
-            <tr>
-              <td><label><?php echo $price->getLabel(); ?>:</label></td>
-              <td>
-                <div><?php echo $formLabel->openTag() . $price->getOption('Name');
-                  echo $this->formInput($price);
-                  echo $this->formElementErrors($price);
-                  echo $formLabel->closeTag(); ?></div>
-              </td>
-            </tr>
-            <tr>
-              <td><label><?php echo $note->getLabel(); ?>:</label></td>
-              <td>
-                <div><?php echo $formLabel->openTag() . $note->getOption('Name');
-                  echo $this->formInput($note);
-                  echo $this->formElementErrors($note);
-                  echo $formLabel->closeTag(); ?></div>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:150px;"><label><?php echo $date->getLabel(); ?>:</label></td>
-              <td style="width:150px;">
-                <?php echo $formLabel->openTag() . $date->getOption('Name');
-                echo $this->formInput($date);
-                echo $this->formElementErrors($date);
-                echo $formLabel->closeTag(); ?>
-              </td>
-            </tr>
-            <input type="hidden" name="type_id" id="type_id">
-            <tr>
-              <td></td>
-              <td>
-                <div><input type="submit" class="greenButton" value="Submit"> <img id="loading"
-                                                                                   src="img/ajax-loader.gif"
-                                                                                   alt="working.."></div>
-                <?php echo $this->form()->closeTag() ?>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+        <div>
+          <input id="ac-2" name="accordion-1" type="radio" />
+          <label for="ac-2">How we work</label>
+          <article class="ac-medium">
+            <p>Like you, I used to think the world was this great place where everybody lived by the same standards I did, then some kid with a nail showed me I was living in his world, a world where chaos rules not order, a world where righteousness is not rewarded. That's Cesar's world, and if you're not willing to play by his rules, then you're gonna have to pay the price. </p>
+          </article>
+        </div>
+        <div>
+          <input id="ac-3" name="accordion-1" type="radio" />
+          <label for="ac-3">References</label>
+          <article class="ac-large">
+            <p>You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I don't know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out. Now we took an oath, that I'm breaking now. We said we'd say it was the snow that killed the other two, but it wasn't. Nature is lethal but it doesn't hold a candle to man. </p>
+          </article>
+        </div>
+        <div>
+          <input id="ac-4" name="accordion-1" type="radio" />
+          <label for="ac-4">Contact us</label>
+          <article class="ac-large">
+            <p>You see? It's curious. Ted did figure it out - time travel. And when we get back, we gonna tell everyone. How it's possible, how it's done, what the dangers are. But then why fifty years in the future when the spacecraft encounters a black hole does the computer call it an 'unknown entry event'? Why don't they know? If they don't know, that means we never told anyone. And if we never told anyone it means we never made it back. Hence we die down here. Just as a matter of deductive logic. </p>
+          </article>
+        </div>
+      </section>
+    </header>
+    <a href="#work" class="jumplink pic">
+      <span class="arrow fa fa-chevron-right"><span>See my work</span></span>
+      <img src="images/me.jpg" alt=""/>
+    </a>
+  </article>
+  <!-- Work -->
+  <article id="work" class="panel">
+    <header>
+      <h2>Work</h2>
+    </header>
+    <p>
+      Phasellus enim sapien, blandit ullamcorper elementum eu, condimentum eu elit.
+      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+      luctus elit eget interdum.
+    </p>
+    <section class="is-gallery">
+      <div class="row half">
+        <div class="4u">
+          <a href="http://flypixel.com/knob/3495684098026313" class="image image-full"><img src="images/1.jpg" alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/contact-login-form/8829734266026310" class="image image-full"><img
+              src="images/2.jpg" alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/wallpaper-pack/3755398966026313" class="image image-full"><img
+              src="images/3.jpg" alt=""></a>
         </div>
       </div>
-
-      <div class="clear">
+      <div class="row half">
+        <div class="4u">
+          <a href="http://flypixel.com/44-shades-of-free-icons/8268508056006318" class="image image-full"><img
+              src="images/4.jpg" alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/flip-clock/3655053956026317" class="image image-full"><img src="images/5.jpg"
+                                                                                                  alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/dropdown/5290304620795313" class="image image-full"><img src="images/6.jpg"
+                                                                                                alt=""></a>
+        </div>
       </div>
-    </div>
-    <div class="box round first grid">
-      <h2>
-        Tables & Grids</h2>
-
-      <div class="block">
-        <table class="data display datatable" id="example">
-          <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Note</th>
-          </tr>
-          </thead>
-          <tbody>
-          <?php
-          if (!empty($this->records)) {
-            foreach ($this->records as $value) {
-              echo '<tr class="gradeA">
-     <td>' . date('M-j-y g:i:s A', strtotime($value['date_created'])) . '</td>
-     <td>' . $value['name'] . '</td>
-     <td>' . $value['name'] . '</td>
-     <td>' . $value['price'] . '</td>
-     <td>' . $value['note'] . '</td>
-     </tr>';
-            }
-          }
-          ?>
-          </tbody>
-        </table>
+      <div class="row half">
+        <div class="4u">
+          <a href="http://flypixel.com/pie-charts/1759361594616314" class="image image-full"><img src="images/7.jpg"
+                                                                                                  alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/sliding-selector-bar/7042935581006315" class="image image-full"><img
+              src="images/8.jpg" alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/dark-as-hell-ui/5418809286006313" class="image image-full"><img
+              src="images/9.jpg" alt=""></a>
+        </div>
       </div>
-    </div>
-  </div>
+      <div class="row half">
+        <div class="4u">
+          <a href="http://flypixel.com/cityscape/9803996277226316" class="image image-full"><img src="images/10.jpg"
+                                                                                                 alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/dropdown/8259263378026313" class="image image-full"><img src="images/11.jpg"
+                                                                                                alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/wood-ui-kit/3574765984616310" class="image image-full"><img src="images/12.jpg"
+                                                                                                   alt=""></a>
+        </div>
+      </div>
+      <div class="row half">
+        <div class="4u">
+          <a href="http://flypixel.com/upload-button/9737964647895311" class="image image-full"><img
+              src="images/13.jpg" alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/collapsible-menunavigation/5743165610406316" class="image image-full"><img
+              src="images/14.jpg" alt=""></a>
+        </div>
+        <div class="4u">
+          <a href="http://flypixel.com/3d-button/5506786525606318" class="image image-full"><img src="images/15.jpg"                                                                                                   alt=""></a>
+        </div>
+      </div>
+    </section>
+  </article>
+  <!-- Email -->
+  <article id="email" class="panel">
+    <header>
+      <h2>Email Me</h2>
+    </header>
+    <form action="#" method="post">
+      <div>
+        <div class="row half">
+          <div class="6u">
+            <input type="text" class="text" name="name" placeholder="Name"/>
+          </div>
+          <div class="6u">
+            <input type="text" class="text" name="email" placeholder="Email"/>
+          </div>
+        </div>
+        <div class="row half">
+          <div class="12u">
+            <input type="text" class="text" name="subject" placeholder="Subject"/>
+          </div>
+        </div>
+        <div class="row half">
+          <div class="12u">
+            <textarea name="message" placeholder="Message"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="12u">
+            <input type="submit" class="button" value="Send Message"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </article>
+</div>
