@@ -72,6 +72,26 @@ class Profile implements InputFilterAwareInterface
       );
 
       $inputFilter->add(
+            $factory->createInput(array(
+                'name' => 'type_id',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'Regex',
+                        'options' => array(
+                            'pattern' => '/^[0-9]+$/',
+                            'message' => array('Type id must be given.')
+                        ),
+                    ),
+                ),
+            ))
+        );
+
+      $inputFilter->add(
         $factory->createInput(array(
           'name' => 'Note',
           'required' => false,

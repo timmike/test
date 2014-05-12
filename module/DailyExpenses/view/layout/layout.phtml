@@ -8,10 +8,13 @@
   ?>
   <!-- Le styles -->
   <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+    ->prependStylesheet($this->basePath() . '/css/themes/base/jquery.ui.all.css')
     ->prependStylesheet($this->basePath() . '/css/style.css');
+
   ?>
   <!-- Scripts -->
   <?php echo $this->headScript()
+     ->prependFile('//code.jquery.com/ui/1.10.4/jquery-ui.js')
     ->prependFile($this->basePath() . '/js/init.js')
     ->prependFile($this->basePath() . '/js/jquery.js')
     ->prependFile($this->basePath() . '/js/skel.min.js');
@@ -28,19 +31,7 @@
       }
     })();
     $(document).ready(function () {
-    //  setupLeftMenu();
-   //   setSidebarHeight();
-   //   $('#example').dataTable();
-      /* assuming that text input datePicker would have id='datePicker' */
-  //    $("#datePicker").datepicker({ dateFormat: 'dd/mm/yy' });
-    //  $("#expensive-outPut").css("visibility", "hidden");
-    //  $("#cssmenu a").click(function () {
-    //    var id = $(this).attr('class');
-     //   var value = $(this).attr('value');
-      //  $("#expensive-outPut").css("visibility", "visible");
-       // $("#expensive-outPut form #type_id").attr('value', id)
-       // $("#expensive-outPut .form-sub-title").text(value);
-      });
+      $("#datePicker").datepicker({ dateFormat: 'dd/mm/yy' });
     });
   </script>
 </head>
@@ -53,7 +44,7 @@
     <a href="#me" class="fa fa-home active"><span>Home</span></a>
     <a href="#work" class="fa fa-folder"><span>Work</span></a>
     <a href="#email" class="fa fa-envelope"><span>Email Me</span></a>
-    <a href="http://twitter.com/n33co" class="fa fa-twitter"><span>Twitter</span></a>
+    <a href="#login" class="fa fa-twitter"><span>Twitter</span></a>
   </nav>
   <!-- Main -->
   <?php echo $this->content; ?>

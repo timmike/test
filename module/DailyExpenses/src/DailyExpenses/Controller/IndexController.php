@@ -21,7 +21,16 @@ class IndexController extends AbstractActionController
   protected $_dailyExpenseTable;
   protected $_daily;
   protected $_user;
+  protected $_menus;
 
+  public function getMenusTable()
+  {
+      if (!$this->_menus) {
+          $sm = $this->getServiceLocator();
+          $this->_menus = $sm->get('DailyExpenses\Model\MenusTable');
+      }
+      return $this->_menus;
+  }
   public function getDailyExpenseTypeTable()
   {
     if (!$this->_dailyExpenseTable) {
@@ -47,7 +56,8 @@ class IndexController extends AbstractActionController
     return new ViewModel(array(
       'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
       'records'=>$this->getUserTable()->fetchAllRecords(),
-      'form'=>$form
+      'form'=>$form,
+      'menus'=>$this->getMenusTable()->fetchAll()
     ));
   }
 
@@ -82,12 +92,13 @@ class IndexController extends AbstractActionController
         $pieces = explode('/', $data['Date']);
         $data['Date'] = $pieces[2].'-'.$pieces[1].'-'.$pieces[0];
         $data['date_created'] = date("Y-m-d H:i:s");
+        $data = array_change_key_case($data,CASE_LOWER);
+        unset($data['send']);
         $this->getDailyExpenseTable()->insert($data);
         return $this->redirect()->toRoute('dailyexpense');
       }
       else{
-        $user_session = new Container('type_id');
-        $user_session->type_id= $request->getPost()['type_id'];
+        $messages = $userExpenseForm->getMessages();
         return $this->redirect()->toRoute('dailyexpense');
       }
     }

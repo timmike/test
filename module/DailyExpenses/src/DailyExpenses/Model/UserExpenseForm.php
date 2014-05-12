@@ -39,13 +39,21 @@ class UserExpenseForm extends Form
     ));
 
     $note = new Element('Note');
-    $note->setLabel('Note');
-    $note->setAttributes(array(
-      'type'  => 'text'
+      $note->setLabel('Note');
+      $note->setAttributes(array(
+          'type'  => 'text',
+      ));
+      $note->setOptions(array(
+          'required' => false,
+          'label' => 'Note'
+      ));
+
+    $type_id = new Element('type_id');
+    $type_id->setAttributes(array(
+        'type'  => 'hidden',
     ));
-    $note->setOptions(array(
-      'required' => false,
-      'label' => 'Note'
+    $type_id->setOptions(array(
+        'required' => true
     ));
 
     $date = new Element('Date');
@@ -70,6 +78,7 @@ class UserExpenseForm extends Form
     $this->add($price);
     $this->add($note);
     $this->add($date);
+    $this->add($type_id);
     $this->add($send);
     $nameInput = new Input('name');
     $inputFilter = new InputFilter($nameInput);
