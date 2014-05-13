@@ -30,7 +30,7 @@ class UsersTable extends AbstractTableGateway {
     $select->from('dailyexpenses');
     $select->join('dailyexpensestype', 'dailyexpenses.type_id=dailyexpensestype.id');
     $select->join('users', 'dailyexpenses.user_id=users.id');
-    $select->order('date_created DESC');
+    $select->order('dailyexpenses.date_created DESC');
     $statement = $sql->prepareStatementForSqlObject($select);
     $result = $statement->execute();
     $res = array();

@@ -167,6 +167,7 @@
 	}
 	
 		form input.text,
+        form input.password,
 		form select,
 		form textarea
 		{
@@ -183,12 +184,12 @@
 		{
 			-webkit-appearance: none;
 		}
-		
+
 		form textarea
 		{
 			height: 15em;
 		}
-		
+
 		form input:focus,
 		form select:focus,
 		form textarea:focus
@@ -214,7 +215,7 @@
 		form :-ms-input-placeholder
 		{
 			color: #999;
-		}		
+		}
 
 	br.clear
 	{
@@ -1066,5 +1067,10 @@
     text-overflow: '';
     width:40%;
     height:30px;
+}
+
+#registrationForm{
+    float: right;
+    width: 400px;
 }
 

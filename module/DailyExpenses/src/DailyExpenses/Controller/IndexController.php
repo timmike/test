@@ -13,8 +13,10 @@ use Zend\Filter\Null;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DailyExpenses\Model\Profile;
+use DailyExpenses\Model\RegistrationFormValidators;
 use Zend\Session\Container;
 use DailyExpenses\Model\UserExpenseForm;
+use DailyExpenses\Model\RegistrationForm;
 
 class IndexController extends AbstractActionController
 {
@@ -22,6 +24,10 @@ class IndexController extends AbstractActionController
   protected $_daily;
   protected $_user;
   protected $_menus;
+
+  public function init()
+  {
+  }
 
   public function getMenusTable()
   {
@@ -52,12 +58,13 @@ class IndexController extends AbstractActionController
   public function indexAction()
   {
     $userExpenseForm = new UserExpenseForm();
-    $form = $userExpenseForm->getForm();
+    $registrationForm = new RegistrationForm();
     return new ViewModel(array(
       'dailyexpensesType' => $this->getDailyExpenseTypeTable()->fetchAll(),
       'records'=>$this->getUserTable()->fetchAllRecords(),
-      'form'=>$form,
-      'menus'=>$this->getMenusTable()->fetchAll()
+      'form'=>$userExpenseForm->getForm(),
+      'menus'=>$this->getMenusTable()->fetchAll(),
+      'registrationForm'=>$registrationForm->getForm()
     ));
   }
 
@@ -100,6 +107,30 @@ class IndexController extends AbstractActionController
       else{
         $messages = $userExpenseForm->getMessages();
         return $this->redirect()->toRoute('dailyexpense');
+      }
+    }
+  }
+
+  public function registerAction()
+  {
+    if ($this->getRequest()->isPost()) {
+      $messages = NULL;
+      $registrationForm = new RegistrationForm();
+      $registrationFormValidators = new RegistrationFormValidators();
+      $registrationForm->setInputFilter($registrationFormValidators->getInputFilter());
+      $registrationForm->setData($this->getRequest()->getPost());
+      if ($registrationForm->isValid()) {
+        $data = (array)$this->getRequest()->getPost();
+        unset($data['Register']);
+        $data['date_created'] = date("Y-m-d H:i:s");
+        $this->getUserTable()->insert($data);
+        return $this->redirect()->toRoute('dailyexpense');
+      }
+      else{
+        $messages = $registrationForm->getMessages();
+        return new ViewModel(array(
+          'registrationForm'=>$registrationForm
+        ));
       }
     }
   }

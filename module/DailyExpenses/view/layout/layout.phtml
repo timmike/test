@@ -32,11 +32,18 @@
     })();
     $(document).ready(function () {
       $("#datePicker").datepicker({ dateFormat: 'dd/mm/yy' });
+      var myArray1 = new Array( "Email", "Password", 'Confirm Password', "First Name", "Last Name");
+      $('#registrationForm').find("input[type=textarea], input[type=text], input[type=password], textarea").each(function(ev)
+      {
+        var name = $(this).attr('name');
+        if(!$(this).val()) {
+          $(this).attr("placeholder", myArray1[ev]);
+        }
+      });
     });
   </script>
 </head>
 <body class="homepage">
-
 <!-- Wrapper-->
 <div id="wrapper">
   <!-- Nav -->
