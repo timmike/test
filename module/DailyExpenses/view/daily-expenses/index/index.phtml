@@ -194,8 +194,13 @@
   </form>
 </article>
 <article id="login" class="panel">
-  <form action="#" method="post" style="width: 400px; float: left;">
-    <div style="width: 400px; display: inline-block">
+  <?php
+  $l = $this->loginForm;
+  $l->setAttribute('action', $this->basePath() . '/login');
+  $l->prepare();
+  echo $this->form()->openTag($l);
+  ?>
+    <div>
       <div class="row">
         <div class="12u">
           <header>
@@ -219,8 +224,8 @@
         </div>
       </div>
     </div>
-  </form>
   <?php
+  echo $this->form()->closeTag($l);
   $f = $this->registrationForm;
   $f->setAttribute('action', $this->basePath() . '/register');
   $f->prepare();
@@ -289,7 +294,7 @@
       </div>
     </div>
   <?php
-  echo $this->form()->openTag($f);
+  echo $this->form()->closeTag($f);
   ?>
 </article>
 </div>

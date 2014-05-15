@@ -9,6 +9,7 @@
 
 namespace DailyExpenses\Controller;
 
+use DailyExpenses\Model\LoginFormValidators;
 use Zend\Filter\Null;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -17,6 +18,7 @@ use DailyExpenses\Model\RegistrationFormValidators;
 use Zend\Session\Container;
 use DailyExpenses\Model\UserExpenseForm;
 use DailyExpenses\Model\RegistrationForm;
+use DailyExpenses\Model\LoginForm;
 
 class IndexController extends AbstractActionController
 {
@@ -57,6 +59,7 @@ class IndexController extends AbstractActionController
 
   public function indexAction()
   {
+    $loginForm = new loginForm();
     $userExpenseForm = new UserExpenseForm();
     $registrationForm = new RegistrationForm();
     return new ViewModel(array(
@@ -64,7 +67,8 @@ class IndexController extends AbstractActionController
       'records'=>$this->getUserTable()->fetchAllRecords(),
       'form'=>$userExpenseForm->getForm(),
       'menus'=>$this->getMenusTable()->fetchAll(),
-      'registrationForm'=>$registrationForm->getForm()
+      'registrationForm'=>$registrationForm->getForm(),
+      'loginForm'=>$loginForm->getForm()
     ));
   }
 
@@ -109,6 +113,25 @@ class IndexController extends AbstractActionController
         return $this->redirect()->toRoute('dailyexpense');
       }
     }
+  }
+
+  public function loginAction()
+  {
+    if ($this->getRequest()->isPost()) {
+      $loginForm = new LoginForm();
+      $loginFormValiators = new LoginFormValidators();
+      $loginForm->setInputFilter($loginFormValiators->getInputFilter());
+      $loginForm->setData($this->getRequest()->getPost());
+      if($loginForm->isValid()){
+        echo 'adf';
+      }
+      else{
+
+      }
+
+    }
+
+    exit;
   }
 
   public function registerAction()
